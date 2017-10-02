@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "service_apimservicewrapper_name": {
+            "defaultValue": "apimservicewrapper",
+            "type": "String"
+        },
+        "apis_echo_api_name": {
+            "defaultValue": "CalculatorAPI",
+            "type": "String"
+        }
+     },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.ApiManagement/service/apis",
+            "name": "[concat(parameters('service_apimservicewrapper_name'), '/', parameters('apis_echo_api_name'))]",
+            "apiVersion": "2017-03-01",
+            "scale": null,
+            "properties": {
+                "displayName": "Calc",
+                "apiRevision": "1",
+                "description": null,
+                "serviceUrl": "http://us156eq-apsvc0104.azurewebsites.net",
+                "path": "calcapi",
+                "protocols": [
+                    "https"
+                ],
+                "authenticationSettings": null,
+                "subscriptionKeyParameterNames": null,
+                "isCurrent": true
+            }
+        }
+    ]
+}
