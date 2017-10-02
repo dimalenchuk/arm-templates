@@ -1,32 +1,49 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-	"service_apimservicewrapper_name": {
-            "defaultValue": "apimservicewrapper",
-            "type": "String"
-        },
-        "product_name": {
-            "defaultValue": "ERSProduct",
-            "type": "String"
-        }
-    },
-    "variables": {},
-    "resources": [
-       {
-            "type": "Microsoft.ApiManagement/service/products",
-            "name": "[concat(parameters('service_apimservicewrapper_name'), '/', parameters('product_name'))]",
-            "apiVersion": "2017-03-01",
-            "scale": null,
-            "properties": {
-                "displayName": "ERSProduct",
-                "description": "This is ERS Product",
-                "terms": null,
-                "subscriptionRequired": true,
-                "approvalRequired": false,
-                "subscriptionsLimit": 1,
-                "state": "published"
-				}
-			}
-    ]
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"service_apimservicewrapper_name": {
+			"defaultValue": "apimservicewrapper",
+			"type": "String"
+		},
+		"product_name": {
+			"defaultValue": "ERSProduct",
+			"type": "String"
+		},
+		"apis_echo_api_name": {
+			"defaultValue": "CalculatorAPI",
+			"type": "String"
+		}
+	},
+	"variables": {
+		
+	},
+	"resources": [{
+		"type": "Microsoft.ApiManagement/service/products",
+		"name": "[concat(parameters('service_apimservicewrapper_name'), '/', parameters('product_name'))]",
+		"apiVersion": "2017-03-01",
+		"scale": null,
+		"properties": {
+			"displayName": "ERSProduct",
+			"description": "This is ERS Product",
+			"terms": null,
+			"subscriptionRequired": true,
+			"approvalRequired": false,
+			"subscriptionsLimit": 1,
+			"state": "published"
+		}
+	},
+	{
+		"type": "Microsoft.ApiManagement/service/products/apis",
+		"name": "[concat(parameters('service_apimservicewrapper_name'), '/', parameters('product_name'), '/', parameters('apis_echo_api_name'))]",
+		"apiVersion": "2017-03-01",
+		"scale": null,
+		"properties": {
+			
+		},
+		"dependsOn": ["[resourceId('Microsoft.ApiManagement/service', parameters('service_apimservicewrapper_name'))]",
+		"[resourceId('Microsoft.ApiManagement/service/apis', parameters('service_apimservicewrapper_name'), parameters('apis_echo_api_name'))]",
+		"[resourceId('Microsoft.ApiManagement/service/products', parameters('service_apimservicewrapper_name'), parameters('product_name'))]"]
+	}
+	]
 }
