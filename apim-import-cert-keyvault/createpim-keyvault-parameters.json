@@ -1,0 +1,26 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "publisherEmail": {
+            "value": "{publisher Email}"
+        },
+        "publisherName": {
+            "value": "templateTest"
+        },
+        "proxyCustomHostname1": {
+            "value": "{custom hostname}"
+        },
+        "proxyCustomHostnameBase64EncodedPfxCertificate1": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/{subId}/resourceGroups/{rgName}/providers/Microsoft.KeyVault/vaults/{keyVaultName}"
+                },
+                "secretName": "Powershell-WildCard"
+            }
+        },
+        "proxySSLCertificatePassword1": {
+            "value": ""
+        }
+    }
+}
