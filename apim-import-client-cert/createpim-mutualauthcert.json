@@ -1,0 +1,36 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "service_devenv_name": {
+            "type": "string"
+        },
+        "certificates_name": {
+            "type": "string"
+        },
+        "mutualAuthenticationCertificate": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Base-64 encoded Mutual authentication PFX certificate."
+            }
+        },
+        "certificatePassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Mutual authentication certificate password."
+            }
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "apiVersion": "2017-03-01",
+            "type": "Microsoft.ApiManagement/service/certificates",
+            "name": "[concat(parameters('service_devenv_name'), '/', parameters('certificates_name'))]",
+            "properties": {
+                "data": "[parameters('mutualAuthenticationCertificate')]",
+                "password": "[parameters('certificatePassword')]"
+            }
+        }
+    ]
+}

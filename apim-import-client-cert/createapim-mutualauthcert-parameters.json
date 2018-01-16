@@ -1,0 +1,23 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "service_devenv_name": {
+            "value": "{apim service name}"
+        },
+        "certificates_name": {
+            "value": "{certificate identifier}"
+        },
+        "mutualAuthenticationCertificate": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.KeyVault/vaults/{vaultName}"
+                },
+                "secretName": "{Certificate Name in KeyVault}"
+            }
+        },
+        "certificatePassword": {
+            "value": ""
+        }
+    }
+}
