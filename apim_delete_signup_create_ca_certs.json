@@ -1,0 +1,106 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "publisherEmail": {
+      "type": "string",
+      "minLength": 1,
+      "metadata": {
+        "description": "The email address of the owner of the service"
+      }
+    },
+    "publisherName": {
+      "type": "string",
+      "minLength": 1,
+      "metadata": {
+        "description": "The name of the owner of the service"
+      }
+    },  
+    "sku": {
+      "type": "string",
+      "allowedValues": [
+        "Developer",
+        "Standard",
+        "Premium"
+      ],
+      "defaultValue": "Developer",
+      "metadata": {
+        "description": "The pricing tier of this API Management service"
+      }
+    },
+    "apimServiceName": {
+      "type": "string"
+    },
+	"base64EncodedCaCertificate": {
+      "type": "string"
+    },
+	"caCertificatePassword": {
+      "type": "string",
+	  "defaultValue" :""
+    },
+	"storeNameEnum": {
+      "type": "string",
+      "allowedValues": [
+        "Root",
+        "CertificateAuthority"
+      ],
+      "defaultValue": "Root",
+      "metadata": {
+        "description": "Certificate store Location"
+      }
+    },
+  },
+  "variables": {
+    "apiManagementServiceName": "[parameters('apimServiceName')]",
+    "signupName": "signup"
+  },
+  "resources": [
+    {
+      "apiVersion": "2018-01-01",
+      "name": "[variables('apiManagementServiceName')]",
+      "type": "Microsoft.ApiManagement/service",
+      "location": "[resourceGroup().location]",
+      "tags": {
+      },
+      "sku": {     
+        "name": "[parameters('sku')]"
+      },
+      "properties": {
+        "publisherEmail": "[parameters('publisherEmail')]",
+        "publisherName": "[parameters('publisherName')]",
+		"customProperties": {
+			"Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Tls10": "True",
+			"Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Tls11": "True",
+			"Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Protocols.Ssl30": "False",
+			"Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TripleDes168": "True",
+			"Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Tls10": "True",
+			"Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Tls11": "True",
+			"Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Backend.Protocols.Ssl30": "False"
+		},
+		"certificates": [
+			{
+				"encodedCertificate": "[parameters('base64EncodedCaCertificate')]",
+				"certificatePassword": "[parameters('caCertificatePassword')]",
+				"storeName": "[parameters('storeNameEnum')]"
+			}
+		]
+      }
+    },
+    {
+      "apiVersion": "2018-01-01",
+      "type": "Microsoft.ApiManagement/service/portalsettings",
+      "name" : "[concat(variables('apiManagementServiceName'),'/', variables('signupName'))]",
+      "dependsOn": [
+        "[variables('apiManagementServiceName')]"
+      ],
+      "properties": {
+          "enabled": false,
+          "termsOfService": {
+            "text": "Your terms of service",
+            "enabled": false,
+            "consentRequired": false
+        }
+      }
+    }
+  ]
+}
