@@ -1,0 +1,72 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "clusterName" : {
+      "value": "api-foo-test-cluster"
+    },
+    "virtualNetworkName": {
+      "value": "api-foo-vnet-test"
+    },
+    "vnetAddressPrefix": {
+      "value": "10.0.0.0/16"
+    },
+    "networkSecurityGroupName": {
+      "value": "api-foo-nsg-test"
+    },
+    "adminUserName": {
+      "value": "apiUser"
+    },
+    "adminPassword": {
+      "value": "r6#U;zPU}"
+    },
+    "keyVaultName":{
+      "value": "keyVaultName"
+    },
+    "sourceVaultValue":{
+      "value": "/subscriptions/subid/resourceGroups/rgname/providers/Microsoft.KeyVault/vaults/keyVaultName"
+    },
+    "clusterAdminClientCertificateThumbprint" :{
+      "value": "118012DXXXXXXXXX9FD8FA128F9E"
+    },
+    "clusterAdminClientCertificateCommonName":{
+      "value": "CN=foo.bar.net"
+    },
+    "certificateUrlValue" : {
+      "value": "https://<keyvaultname>.vault.azure.net/secrets/sf-cluster-mgmt-admin/66760eb81dbd44f18d418549e4ad4bd2"
+    },
+    "virtualMachineScaleSets": {
+      "value": {
+        "machines": [
+          {
+            "publicIpName": "api-samir-public-ip1",
+            "clusterDnsName": "api-dns1323-samir",
+            "loadbalancerName": "api-lb-samir-ip1",
+            "subnetName": "default",
+            "subnetAddressPrefix": "10.0.0.0/24",
+            "networksecuritygroup": "api-samir-nsg-machine1",
+            "durabilityTier": "Silver",
+            "nodeTypeSize": "Standard_D2_v3",
+            "nodeTypeInstanceCount": 5,
+            "vmScaleSetName": "apihost1",
+            "isPrimary": true
+          },
+          {
+            "publicIpName": "api-samir-public-ip2",
+            "clusterDnsName": "api-dns1343-samir",
+            "loadbalancerName": "api-lb-samir-ip2",
+            "subnetName": "default1",
+            "subnetAddressPrefix": "10.0.1.0/24",
+            "networksecuritygroup": "api-samir-nsg-machine1",
+            "durabilityTier": "Silver",
+            "nodeTypeSize": "Standard_D2_v3",
+            "nodeTypeInstanceCount": 5,
+            "vmScaleSetName": "apihost2",
+            "isPrimary": false
+          }
+        ],
+        "count": 2
+      }
+    }
+  }
+}
