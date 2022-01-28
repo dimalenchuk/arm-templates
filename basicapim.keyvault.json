@@ -71,7 +71,7 @@
 			"publisherEmail": "[parameters('publisherEmail')]",
 			"publisherName": "[parameters('publisherName')]",
 			"hostnameConfigurations": [{
-				"identityClientId": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',parameters('userAssignedIdentityName'))]",
+				"identityClientId": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',parameters('userAssignedIdentityName'))]": {},
 				"type": "Proxy",
 				"hostName": "[parameters('proxyCustomHostname1')]",
 				"keyVaultId": "[parameters('keyVaultIdToCertificate')]"
@@ -79,7 +79,7 @@
 		},
 		"identity": {
           		"type": "systemAssigned,userAssigned",
-			"userAssignedIdentities": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',parameters('userAssignedIdentityName'))]"
+			"userAssignedIdentities": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',parameters('userAssignedIdentityName'))]": {}
 	        }
 	}]
 }
