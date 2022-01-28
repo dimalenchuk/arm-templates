@@ -51,7 +51,7 @@
 		"apiManagementServiceName": "[concat('apiservice', uniqueString(resourceGroup().id))]"
 	},
 	"resources": [{
-		"apiVersion": "2017-03-01",
+		"apiVersion": "2021-08-01",
 		"name": "[variables('apiManagementServiceName')]",
 		"type": "Microsoft.ApiManagement/service",
 		"location": "[resourceGroup().location]",
