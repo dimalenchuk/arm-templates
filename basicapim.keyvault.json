@@ -44,15 +44,10 @@
 			"metadata": {
 				"description": "Reference to the KeyVault Certificate."
 			}
-		},
-        	"userAssignedIdentityName": {
-            		"type": "string",
-            		"metadata": {
-                		"description": "identity name"
-            		}
-        	}
+		}
 	},
 	"variables": {
+		"userAssignedIdentityName": "drflowidentity",
 		"apiManagementServiceName": "[concat('apiservice', uniqueString(resourceGroup().id))]"
 	},
 	"resources": [{
@@ -80,7 +75,7 @@
 		"identity": {
           		"type": "systemAssigned,userAssigned",
 			"userAssignedIdentities": {
-				"[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',parameters('userAssignedIdentityName'))]": {}
+				"[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',variables('userAssignedIdentityName'))]": {}
 			}
 	        }
 	}]
