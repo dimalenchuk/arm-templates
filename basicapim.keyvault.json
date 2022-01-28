@@ -65,7 +65,7 @@
 			"publisherEmail": "[parameters('publisherEmail')]",
 			"publisherName": "[parameters('publisherName')]",
 			"hostnameConfigurations": [{
-				"identityClientId": "[resourceID('/Microsoft.ManagedIdentity/userAssignedIdentities/drflowidentity')]",
+				"identityClientId": "/subscriptions/78d6d187-f7ce-4c14-b525-65b4fae192b1/resourceGroups/automation/providers/Microsoft.ManagedIdentity/userAssignedIdentities/drflowidentity",
 				"type": "Proxy",
 				"hostName": "[parameters('proxyCustomHostname1')]",
 				"keyVaultId": "[parameters('keyVaultIdToCertificate')]"
@@ -73,7 +73,7 @@
 		},
 		"identity": {
           		"type": "systemAssigned,userAssigned",
-			"userAssignedIdentities": "[resourceID('/Microsoft.ManagedIdentity/userAssignedIdentities/drflowidentity')]"
+			"userAssignedIdentities": "/subscriptions/78d6d187-f7ce-4c14-b525-65b4fae192b1/resourceGroups/automation/providers/Microsoft.ManagedIdentity/userAssignedIdentities/drflowidentity"
 	        }
 	}]
 }
